@@ -8,18 +8,21 @@
 		<div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
 			<ul class="navbar-nav mb-2 mb-lg-0">
 				<li class="nav-item dropdown">
-					<a class="btn btn-lg btn-dark nav-link dropdown-toggle text-light mx-3" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+					<a class="btn btn-lg btn-dark nav-link dropdown-toggle text-light mx-3" href="/program" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 						Catégories
 					</a>
 					<ul class="dropdown-menu">
 						<li>
-							<a class="dropdown-item" href="#">Action</a>
+							<a class="dropdown-item" href="{{ path('program_show', {id : 1} )}}">Action</a>
 						</li>
 						<li>
-							<a class="dropdown-item" href="#">Science Fiction</a>
+							<a class="dropdown-item" href="{{ path('program_show', {id : 2} )}}">Science Fiction</a>
 						</li>
 						<li>
-							<a class="dropdown-item" href="#">Comédie</a>
+							<a class="dropdown-item" href="{{ path('program_show', {id : 3} )}}">Comédie</a>
+						</li>
+						<li>
+							<a class="dropdown-item" href="{{ path('program_show', {id : 4} )}}">Thriller</a>
 						</li>
 					</ul>
 				</li>

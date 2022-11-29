@@ -1,7 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{parent()}}| Program{% endblock %}
+{% block title %}
+	{{parent()}}| Séries
+{% endblock %}
 
 {% block body %}
-<h1>{{ website }} index</h1>
+	<div class="container">
+		<h1 class="p-4 text-center">Toutes les séries</h1>
+		<ul>
+			{% for program in programs %}
+				<li>
+					<div class="card">
+                        <img src="#" alt="Image de la série">
+                        <h2>{{program.title}}</h2>
+                        <p>{{program.synopsis}}</p>
+					</div>
+				</li>
+			{% endfor %}
+		</ul>
+	</div>
 {% endblock %}

@@ -5,18 +5,22 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container">
-		<h1 class="p-4 text-center">Toutes les séries</h1>
-		<ul>
-			{% for program in programs %}
-				<li>
-					<div class="card">
-                        <img src="#" alt="Image de la série">
-                        <h2>{{program.title}}</h2>
-                        <p>{{program.synopsis}}</p>
+	<section class="section-categories">
+		<h1 class="p-4 text-center">Liste de toutes les séries</h1>
+		<div class="container">
+			<div class="row">
+				{% for program in programs %}
+					<div class="col-12 col-sm-4 col-md-3 g-4 mb-4">
+						<div class="card">
+							<img src="{{program.poster}}" class="rounded-top img-card" alt="Image de la série">
+							<div class="card-body">
+								<h2 class="text-dark">{{program.title}}</h2>
+								<p class="text-dark">{{program.synopsis}}</p>
+							</div>
+						</div>
 					</div>
-				</li>
-			{% endfor %}
-		</ul>
-	</div>
+				{% endfor %}
+			</div>
+		</div>
+	</section>
 {% endblock %}

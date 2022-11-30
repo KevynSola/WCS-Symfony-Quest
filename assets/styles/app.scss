@@ -1,0 +1,28 @@
+/* Color Body */
+$primary: #121212;
+
+/* Color Pink Dark */
+$secondary: #F76C6C;
+
+/* Color Pink Light */
+$success: #F87A7A;
+
+/* Color Black Intermediaire */
+$dark: #1D1D1D;
+
+/* Color Black Light */
+$valid: #262626;
+
+/* Color Light */
+$light: #FAFAFA;
+
+$theme-colors: (
+    "primary": $primary,
+    "secondary": $secondary,
+    "success": $success,
+    "dark": $dark,
+    "light": $light,
+    "valid": $valid
+);
+
+@import "~bootstrap/scss/bootstrap";

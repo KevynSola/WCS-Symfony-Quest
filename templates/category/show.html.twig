@@ -1,12 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	{{parent()}}| Séries
+	{{parent()}}|
+	{{categoryName.name}}
 {% endblock %}
 
 {% block body %}
 	<section class="section-program">
-		<h1 class="p-4 text-center">Liste de toutes les séries</h1>
+		<h1 class="p-4 text-center">{{categoryName.name}}</h1>
 		<div class="container">
 			<div class="row">
 				{% for program in programs %}
@@ -19,6 +20,8 @@
 							</div>
 						</div>
 					</div>
+				{% else %}
+					<p>Aucune séries ajoutée</p>
 				{% endfor %}
 			</div>
 		</div>

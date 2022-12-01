@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{parent()}}| Catégories
+{% endblock %}
+
+{% block body %}
+	<section class="section-category">
+		<div class="container">
+			<h1 class="p-4 text-center text-light">Liste des catégories</h1>
+
+			<div class="row justify-content-center">
+				<div class="col">
+					<ul>
+						{% for category in categories %}
+							<li class="list-unstyled d-flex justify-content-center">
+								<a class="btn btn-lg btn-valid w-25 fs-4 my-4 text-light" href="{{path('category_show', {categoryName : category.name})}}">{{category.name}}</a>
+							</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}

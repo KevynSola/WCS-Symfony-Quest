@@ -2,13 +2,13 @@
 
 {% block title %}
 	{{parent()}}|
-	{{program.title}}
+	{{season.id}}
 {% endblock %}
 
 {% block body %}
 	<div class="section-one-prog">
 		<a class="btn btn-lg btn-light m-4" href="/program">Retour</a>
-		<h1 class="p-4 text-center">{{program.title}}</h1>
+		<h1 class="p-4 text-center">{{season.number}}</h1>
 		<div class="container">
 			<div class="row">
 				<div class="col mb-4">
@@ -17,16 +17,8 @@
 						<div class="card-body">
 							<p class="text-dark">{{program.synopsis}}</p>
 						</div>
-						<div class="season">
-							<ul class="season-list list-unstyled d-flex justify-content-center align-items-center">
-								{% for season in program.seasons %}
-									<li class="text-dark mx-3">
-										<a href="{{path('program_season_show', {"programId" : program.id, "seasonId": season.id})}}">{{season.number}}</a>
-									</li>
-								{% else %}
-									<p class="text-dark">Aucune saison trouvée</p>
-								{% endfor %}
-							</ul>
+						<div class="episode">
+							<p>{# {{season.episode}} #}</p>
 						</div>
 					</div>
 				</div>

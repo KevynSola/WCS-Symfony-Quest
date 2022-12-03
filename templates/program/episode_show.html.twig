@@ -1,0 +1,25 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	{{parent()}}| Épisodes
+{% endblock %}
+
+{% block body %}
+	<div class="section-one-ep">
+		<a class="btn btn-lg btn-light m-4" href="/program">Retour</a>
+		<h1 class="p-4 text-center">{{'Épisode #' ~ episode.number ~ ' - ' ~ episode.title}}</h1>
+		<div class="container">
+			<div class="row">
+				<div class="col mb-4">
+					<div class="card">
+						<div class="card-body">
+							<h2 class="text-dark">{{program.title}}</h2>
+							<h3 class="text-dark">{{'Saison #' ~ season.number}}</h3>
+							<p class="text-dark">{{episode.synopsis}}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

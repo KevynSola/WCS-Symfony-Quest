@@ -18,7 +18,9 @@
 							<ul class="episode text-dark">Liste des épisodes
 								{% if season.episodes is not empty %}
 									{% for episode in season.episodes %}
-										<li><a href="#">{{episode.number ~ ' - ' ~ episode.title}}</a></li>
+										<li>
+											<a href="{{path('program_episode_show', {"program": program.id , "season": season.id , "episode": episode.id})}}">{{episode.number ~ ' - ' ~ episode.title}}</a>
+										</li>
 									{% endfor %}
 								{% else %}
 									<div class="empty">

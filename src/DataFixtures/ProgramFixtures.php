@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use Faker\Factory;
 use App\Entity\Program;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -9,58 +10,23 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class ProgramFixtures extends Fixture implements DependentFixtureInterface
 {
+    public const PROGRAM_NBR = 5;
     public function load(ObjectManager $manager)
     {
-        for ($i = 0; $i < 5; $i++) {
-            $program = new Program();
-            $program->setTitle('Title ' . $i);
-            $program->setSynopsis('La série sur la fille de la famille Adams');
-            $program->setCategory($this->getReference('category_Horreur'));
-            $program->setPoster('https://fr.web.img4.acsta.net/pictures/22/09/23/15/11/2942764.jpg');
-
-            $manager->persist($program);
+        $j = 1;
+        foreach (CategoryFixtures::CATEGORIES as $category) {
+            for ($i = 1; $i <= self::PROGRAM_NBR; $i++) {
+                $faker = Factory::create();
+                $program = new Program();
+                $program->setTitle($faker->sentence(4, true));
+                $program->setSynopsis($faker->paragraph(3));
+                $program->setCategory($this->getReference('category_' . $category));
+                $program->setPoster('https://www.ecranlarge.com/media/cache/1600x1200/uploads/image/001/456/9mxcenewbmdxjxdfoijwigoe1tv-987.jpg');
+                $this->addReference('program_' . $j, $program);
+                $manager->persist($program);
+                $j++;
+            }
         }
-
-        for ($i = 0; $i < 5; $i++) {
-            $program = new Program();
-            $program->setTitle('Title ' . $i);
-            $program->setSynopsis('Il va vraiment falloir remplir tout ça');
-            $program->setCategory($this->getReference('category_Science-fiction'));
-            $program->setPoster('https://m.media-amazon.com/images/I/81PIj3fMk3L._AC_SL1500_.jpg');
-
-            $manager->persist($program);
-        }
-
-        for ($i = 0; $i < 5; $i++) {
-            $program = new Program();
-            $program->setTitle('Title ' . $i);
-            $program->setSynopsis('Il va vraiment falloir remplir tout ça');
-            $program->setCategory($this->getReference('category_Action'));
-            $program->setPoster('https://fr.web.img6.acsta.net/c_310_420/pictures/22/06/07/11/57/5231272.jpg');
-
-            $manager->persist($program);
-        }
-
-        for ($i = 0; $i < 5; $i++) {
-            $program = new Program();
-            $program->setTitle('Title ' . $i);
-            $program->setSynopsis('Il va vraiment falloir remplir tout ça');
-            $program->setCategory($this->getReference('category_Animation'));
-            $program->setPoster('https://cdn.kulturegeek.fr/wp-content/uploads/2021/07/What-If-Marvel-Affiche.jpg');
-
-            $manager->persist($program);
-        }
-
-        for ($i = 0; $i < 5; $i++) {
-            $program = new Program();
-            $program->setTitle('Title ' . $i);
-            $program->setSynopsis('Il va vraiment falloir remplir tout ça');
-            $program->setCategory($this->getReference('category_Aventure'));
-            $program->setPoster('https://fr.web.img5.acsta.net/c_310_420/pictures/19/12/12/12/13/2421997.jpg');
-
-            $manager->persist($program);
-        }
-
         $manager->flush();
     }
 

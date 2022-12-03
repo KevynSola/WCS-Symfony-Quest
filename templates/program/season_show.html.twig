@@ -8,17 +8,24 @@
 {% block body %}
 	<div class="section-one-prog">
 		<a class="btn btn-lg btn-light m-4" href="/program">Retour</a>
-		<h1 class="p-4 text-center">{{season.number}}</h1>
+		<h1 class="p-4 text-center">{{'Saison #' ~ season.number ~ ' - ' ~ program.title}}</h1>
 		<div class="container">
 			<div class="row">
 				<div class="col mb-4">
 					<div class="card">
-						<img src="{{program.poster}}" class="rounded-top img-card-show" alt="Image de la série">
 						<div class="card-body">
 							<p class="text-dark">{{program.synopsis}}</p>
-						</div>
-						<div class="episode">
-							<p>{# {{season.episode}} #}</p>
+							<ul class="episode text-dark">Liste des épisodes
+								{% if season.episodes is not empty %}
+									{% for episode in season.episodes %}
+										<li><a href="#">{{episode.number ~ ' - ' ~ episode.title}}</a></li>
+									{% endfor %}
+								{% else %}
+									<div class="empty">
+										Aucun épisodes trouvé.
+									</div>
+								{% endif %}
+							</ul>
 						</div>
 					</div>
 				</div>

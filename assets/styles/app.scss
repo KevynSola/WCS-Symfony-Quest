@@ -26,5 +26,6 @@ $theme-colors: (
 );
 
 @import "~bootstrap/scss/bootstrap";
+@import "body.scss";
 @import "header.scss";
 @import "categories.scss";

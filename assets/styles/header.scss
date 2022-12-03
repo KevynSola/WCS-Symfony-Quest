@@ -1,5 +1,4 @@
 .landing{
-    padding-top: 70px;
     height: calc(100vh - 70px);
     width: 100%;
     background: url('/public/build/images/flowers-gate-alice-in-wonderland-tim-burton-wallpaper-preview.jpg');
@@ -8,9 +7,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    .overlay h1{
+    .overlay a{
         font-size: 5rem;
         text-shadow: 0 4px 10px black;
+        text-decoration: none;
     }
 }
 

@@ -1,9 +1,28 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	{{parent()}}| {{program}}
+	{{parent()}}|
+	{{program.title}}
 {% endblock %}
 
 {% block body %}
-	<h1 class="p-4 text-center">Program {{program}}</h1>
+	<div class="section-one-prog">
+		<a class="btn btn-lg btn-light m-4" href="/program">Retour</a>
+		<h1 class="p-4 text-center">{{program.title}}</h1>
+		<div class="container">
+			<div class="row">
+				<div class="col mb-4">
+					<div class="card">
+						<img src="{{program.poster}}" class="rounded-top img-card-show" alt="Image de la série">
+						<div class="card-body">
+							<p class="text-dark">{{program.synopsis}}</p>
+						</div>
+						<div class="season">
+							<p>{# {{program.seasons}} #}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}

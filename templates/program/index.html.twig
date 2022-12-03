@@ -17,6 +17,7 @@
 								<h2 class="text-dark">{{program.title}}</h2>
 								<p class="text-dark">{{program.synopsis}}</p>
 							</div>
+							<a class="btn btn-lg btn-light" href="{{path('program_show', {id : program.id})}}">En savoir +</a>
 						</div>
 					</div>
 				{% endfor %}

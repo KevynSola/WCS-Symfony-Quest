@@ -7,6 +7,7 @@
 
 {% block body %}
 	<section class="section-program">
+		<a class="btn btn-lg btn-light mx-4" href="/program">Retour</a>
 		<h1 class="p-4 text-center">{{categoryName.name}}</h1>
 		<div class="container">
 			<div class="row">
@@ -18,6 +19,7 @@
 								<h2 class="text-dark">{{program.title}}</h2>
 								<p class="text-dark">{{program.synopsis}}</p>
 							</div>
+							<a class="btn btn-lg btn-light" href="{{path('program_show', {id : program.id})}}">En savoir +</a>
 						</div>
 					</div>
 				{% else %}

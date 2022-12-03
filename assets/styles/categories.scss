@@ -1,5 +1,4 @@
 .section-program {
-  padding-top: 62px;
   height: calc(100vh - 62px);
   width: 100%;
   background: url("/public/build/images/alice-in-wonderland-alice-alice-madness-returns-wallpaper-preview.jpg");
@@ -9,7 +8,6 @@
   overflow: auto;
 }
 .section-category {
-  padding-top: 62px;
   height: calc(100vh - 62px);
   width: 100%;
   background: url("/public/build/images/movie-alice-in-wonderland-2010-colorful-fantasy-wallpaper-preview.jpg");
@@ -23,4 +21,10 @@
   height: 100%;
   width: 100%;
   object-fit: cover;
+  max-height: 380px;
+}
+
+.img-card-show {
+  object-fit: contain;
+  max-height: 380px;
 }

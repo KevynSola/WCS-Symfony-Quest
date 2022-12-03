@@ -1,0 +1,21 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	{{parent()}}| Formulaire Séries
+{% endblock %}
+
+{% block body %}
+	{{form_start(form)}}
+	<div class="section-form">
+		<div class="container">
+			<h1 class="p-4 text-center">Formulaire d'ajout de série</h1>
+			<div class="card text-center text-dark">
+				<div class="row m-4">
+					{{form_widget(form)}}
+				</div>
+				<button class="btn btn-lg btn-outline-secondary m-4" type="submit">Ajout de série</button>
+			</div>
+		</div>
+	</div>
+	{{form_end(form)}}
+{% endblock %}

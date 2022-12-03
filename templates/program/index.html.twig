@@ -11,13 +11,13 @@
 			<div class="row">
 				{% for program in programs %}
 					<div class="col-12 col-sm-4 col-md-3 g-4 mb-4">
-						<div class="card">
+						<div class="card card-program">
 							<img src="{{program.poster}}" class="rounded-top img-card" alt="Image de la série">
 							<div class="card-body">
 								<h2 class="text-dark">{{program.title}}</h2>
 								<p class="text-dark">{{program.synopsis}}</p>
 							</div>
-							<a class="btn btn-lg btn-light" href="{{path('program_show', {id : program.id})}}">En savoir +</a>
+							<a class="btn btn-lg btn-outline-secondary" href="{{path('program_show', {"program" : program.id})}}">En savoir +</a>
 						</div>
 					</div>
 				{% endfor %}

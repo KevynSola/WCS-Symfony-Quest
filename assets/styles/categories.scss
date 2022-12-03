@@ -17,6 +17,14 @@
   overflow: auto;
 }
 
+.card-program {
+  max-height: 680px;
+  height: 100%;
+  .card-body {
+    overflow: auto;
+  }
+}
+
 .img-card {
   height: 100%;
   width: 100%;

@@ -10,7 +10,8 @@
 		<link rel="icon" href="{{ asset('build/images/favicon-32x32.png') }}" sizes="32x32">
 		<link rel="icon" href="{{ asset('build/images/android-chrome-192x192.png') }}" sizes="192x192">
 		<link rel="icon" href="{{ asset('build/images/apple-touch-icon.png')}}">
-		<link rel="icon" href="{{ asset('build/images/favicon.ico') }}">
+		<link
+		rel="icon" href="{{ asset('build/images/favicon.ico') }}">
 		{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
 		{% block stylesheets %}
 			{{ encore_entry_link_tags('app') }}
@@ -24,6 +25,7 @@
 		{% include "_navbar.html.twig" %}
 	</header>
 	<body>
+		{% include "_flash.html.twig" %}
 		{% block body %}{% endblock %}
 	</body>
 </html>

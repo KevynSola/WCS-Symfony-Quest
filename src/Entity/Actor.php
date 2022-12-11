@@ -2,30 +2,24 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use App\Repository\CategoryRepository;
+use App\Repository\ActorRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: CategoryRepository::class)]
-class Category
+#[ORM\Entity(repositoryClass: ActorRepository::class)]
+class Actor
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    #[Assert\NotBlank(message: 'Le nom est obligatoire')]
-    #[Assert\Length(
-        max: 255,
-        maxMessage: 'Le nom {{value}} doit être inférieur à {{limit}} caractères',
-    )]
+    #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Program::class)]
-    private $programs;
+    #[ORM\ManyToMany(targetEntity: Program::class, inversedBy: 'actors')]
+    private Collection $programs;
 
     public function __construct()
     {
@@ -50,7 +44,7 @@ class Category
     }
 
     /**
-     * Get the value of programs
+     * @return Collection<int, Program>
      */
     public function getPrograms(): Collection
     {
@@ -61,7 +55,6 @@ class Category
     {
         if (!$this->programs->contains($program)) {
             $this->programs->add($program);
-            $program->setCategory($this);
         }
 
         return $this;
@@ -69,12 +62,7 @@ class Category
 
     public function removeProgram(Program $program): self
     {
-        if ($this->programs->removeElement($program)) {
-            // set the owning side to null (unless already changed)
-            if ($program->getCategory() === $this) {
-                $program->setCategory(null);
-            }
-        }
+        $this->programs->removeElement($program);
 
         return $this;
     }

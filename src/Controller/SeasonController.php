@@ -22,7 +22,7 @@ class SeasonController extends AbstractController
     }
 
     #[Route('/new', name: 'app_season_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, SeasonRepository $seasonRepository): Response
+    public function new (Request $request, SeasonRepository $seasonRepository): Response
     {
         $season = new Season();
         $form = $this->createForm(SeasonType::class, $season);
@@ -30,6 +30,8 @@ class SeasonController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $seasonRepository->save($season, true);
+
+            $this->addFlash('success', 'Cette nouvelle saison est créée');
 
             return $this->redirectToRoute('app_season_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -69,8 +71,9 @@ class SeasonController extends AbstractController
     #[Route('/{id}', name: 'app_season_delete', methods: ['POST'])]
     public function delete(Request $request, Season $season, SeasonRepository $seasonRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$season->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $season->getId(), $request->request->get('_token'))) {
             $seasonRepository->remove($season, true);
+            $this->addFlash('danger', 'Cette saison a été supprimée');
         }
 
         return $this->redirectToRoute('app_season_index', [], Response::HTTP_SEE_OTHER);

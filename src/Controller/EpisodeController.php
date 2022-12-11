@@ -22,7 +22,7 @@ class EpisodeController extends AbstractController
     }
 
     #[Route('/new', name: 'app_episode_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EpisodeRepository $episodeRepository): Response
+    public function new (Request $request, EpisodeRepository $episodeRepository): Response
     {
         $episode = new Episode();
         $form = $this->createForm(EpisodeType::class, $episode);
@@ -30,6 +30,8 @@ class EpisodeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $episodeRepository->save($episode, true);
+
+            $this->addFlash('success', 'Ce nouvel épisode est crée');
 
             return $this->redirectToRoute('app_episode_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -69,8 +71,9 @@ class EpisodeController extends AbstractController
     #[Route('/{id}', name: 'app_episode_delete', methods: ['POST'])]
     public function delete(Request $request, Episode $episode, EpisodeRepository $episodeRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$episode->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $episode->getId(), $request->request->get('_token'))) {
             $episodeRepository->remove($episode, true);
+            $this->addFlash('danger', 'Cet épisode a été supprimé');
         }
 
         return $this->redirectToRoute('app_episode_index', [], Response::HTTP_SEE_OTHER);

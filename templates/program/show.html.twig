@@ -27,6 +27,13 @@
 									<p class="text-dark">Aucune saison trouvée</p>
 								{% endfor %}
 							</ul>
+							<ul class="actor-list list-unstyled d-flex flex-column justify-content-center align-items-center fw-bold text-dark">Acteurs :
+								{% for actor in program.actors %}
+									<a class="fw-normal" href="{{path('app_actor_show', {"actor" : actor.id})}}">{{ actor.name }}</a>
+								{% else %}
+									<li class="fw-normal">Aucun acteur pour cette série</li>
+								{% endfor %}
+							</ul>
 						</div>
 					</div>
 				</div>

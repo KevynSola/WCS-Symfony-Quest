@@ -6,14 +6,16 @@ use App\Entity\Season;
 use App\Entity\Episode;
 use App\Entity\Program;
 use App\Form\ProgramType;
-use App\Repository\ProgramRepository;
 use App\Service\ProgramDuration;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use App\Repository\ProgramRepository;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 #[Route('/program', name: 'program_')]
 class ProgramController extends AbstractController
@@ -34,7 +36,7 @@ class ProgramController extends AbstractController
     }
 
     #[Route('/new', name:'new')]
-    public function new(Request $request, ProgramRepository $programRepository, SluggerInterface $slugger): Response
+    public function new(Request $request, ProgramRepository $programRepository, MailerInterface $mailer, SluggerInterface $slugger): Response
     {
         $program = new Program();
 
@@ -45,6 +47,14 @@ class ProgramController extends AbstractController
             $slug = $this->slugger->slug($program->getTitle());
             $program->setSlug($slug);
             $programRepository->save($program, true);
+
+            $email = (new Email())
+                ->from($this->getParameter('mailer_from'))
+                ->to('your_email@example.com')
+                ->subject('Une nouvelle série vient d\'être publiée !')
+                ->html('<p>Une nouvelle série vient d\'être publiée sur Wild Séries !</p>');
+
+            $mailer->send($email);
 
             $this->addFlash('success', 'Cette nouvelle série est créée');
 

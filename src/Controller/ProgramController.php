@@ -8,6 +8,7 @@ use App\Entity\Program;
 use App\Form\ProgramType;
 use App\Repository\ProgramRepository;
 use App\Service\ProgramDuration;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -55,7 +56,7 @@ class ProgramController extends AbstractController
         ]);
     }
 
-    #[Route('/{program}', requirements: ['id' => '\d+'], methods: ['GET'], name: 'show')]
+    #[Route('/{slug}', methods: ['GET'], name: 'show')]
     public function show(Program $program, ProgramRepository $programRepository, ProgramDuration $programDuration): Response
     {
         $seasons = $program->getSeasons();
@@ -67,7 +68,7 @@ class ProgramController extends AbstractController
         ]);
     }
 
-    #[Route('/{program}/seasons/{season}', requirements: ['id' => '\d+'], methods: ['GET'], name: 'season_show')]
+    #[Route('/{slug}/seasons/{season}', requirements: ['id' => '\d+'], methods: ['GET'], name: 'season_show')]
     public function showSeason(Program $program, Season $season): Response
     {
         return $this->render('program/season_show.html.twig', [
@@ -76,7 +77,9 @@ class ProgramController extends AbstractController
         ]);
     }
 
-    #[Route('/{program}/season/{season}/episode/{episode}', requirements: ['id' => '\d+'], methods: ['GET'], name: 'episode_show')]
+    #[Route('/{slug}/season/{season}/episode/{slugEp}', methods: ['GET'], name: 'episode_show')]
+    #[ParamConverter('episode', options: ['mapping' => ['slugEp' => 'slug']])]
+    #[ParamConverter('program', options: ['mapping' => ['slug' => 'slug']])]
     public function showEpisode(Program $program, Season $season, Episode $episode)
     {
         return $this->render('program/episode_show.html.twig', [
@@ -86,13 +89,15 @@ class ProgramController extends AbstractController
         ]);
     }
 
-    #[Route('/{program}/edit', name: 'edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Program $program, ProgramRepository $programRepository): Response
+    #[Route('/{slug}/edit', name: 'edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Program $program, ProgramRepository $programRepository, SluggerInterface $slugger): Response
     {
         $form = $this->createForm(ProgramType::class, $program);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $slug = $this->slugger->slug($program->getTitle());
+            $program->setSlug($slug);
             $programRepository->save($program, true);
 
             return $this->redirectToRoute('program_index', [], Response::HTTP_SEE_OTHER);
@@ -104,7 +109,7 @@ class ProgramController extends AbstractController
         ]);
     }
 
-    #[Route('/{program}', requirements: ['id' => '\d+'], name: 'delete', methods: ['POST'])]
+    #[Route('/{slug}', requirements: ['id' => '\d+'], name: 'delete', methods: ['POST'])]
     public function delete(Request $request, Program $program, ProgramRepository $programRepository): Response
     {
         if ($this->isCsrfTokenValid('delete' . $program->getId(), $request->request->get('_token'))) {

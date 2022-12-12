@@ -19,7 +19,7 @@
 								<h2 class="text-dark">{{program.title}}</h2>
 								<p class="text-dark">{{program.synopsis}}</p>
 							</div>
-							<a class="btn btn-lg btn-outline-secondary" href="{{path('program_show', {"program" : program.id})}}">En savoir +</a>
+							<a class="btn btn-lg btn-outline-secondary" href="{{path('program_show', {"slug" : program.slug})}}">En savoir +</a>
 						</div>
 					</div>
 				{% else %}

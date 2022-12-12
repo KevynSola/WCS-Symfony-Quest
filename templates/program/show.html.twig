@@ -8,7 +8,10 @@
 {% block body %}
 	<div class="section-one-prog">
 		<a class="btn btn-lg btn-light m-4" href="/program">Retour</a>
-		<h1 class="p-4 text-center">{{program.title}}</h1>
+		<div class="bloc-head d-flex justify-content-around align-items-center">
+			<h1 class="p-4 text-center">{{program.title}}</h1>
+			<a class="btn btn-lg btn-outline-secondary mb-4" href="{{path('program_edit', {"slug": program.slug})}}">Éditer une série</a>
+		</div>
 		<div class="container">
 			<div class="row">
 				<div class="col mb-4">
@@ -21,7 +24,7 @@
 							<ul class="season-list list-unstyled d-flex justify-content-center align-items-center text-dark">Liste des saisons :
 								{% for season in program.seasons %}
 									<li class="text-dark mx-3">
-										<a href="{{path('program_season_show', {"program" : program.id, "season": season.id})}}">{{season.number}}</a>
+										<a href="{{path('program_season_show', {"slug" : program.slug, "season": season.id})}}">{{season.number}}</a>
 									</li>
 								{% else %}
 									<p class="text-dark">Aucune saison trouvée</p>

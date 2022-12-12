@@ -7,7 +7,7 @@
 
 {% block body %}
 	<div class="section-one-prog">
-		<a class="btn btn-lg btn-light m-4" href="{{path('program_show', {"program" : program.id})}}">Retour</a>
+		<a class="btn btn-lg btn-light m-4" href="{{path('program_show', {"slug" : program.slug})}}">Retour</a>
 		<h1 class="p-4 text-center">{{'Saison #' ~ season.number ~ ' - ' ~ program.title}}</h1>
 		<div class="container">
 			<div class="row">
@@ -19,7 +19,7 @@
 								{% if season.episodes is not empty %}
 									{% for episode in season.episodes %}
 										<li>
-											<a href="{{path('program_episode_show', {"program": program.id , "season": season.id , "episode": episode.id})}}">{{episode.number ~ ' - ' ~ episode.title}}</a>
+											<a href="{{path('program_episode_show', {"slug": program.slug , "season": season.id , "slugEp": episode.slug})}}">{{episode.number ~ ' - ' ~ episode.title}}</a>
 										</li>
 									{% endfor %}
 								{% else %}

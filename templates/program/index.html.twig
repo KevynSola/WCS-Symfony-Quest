@@ -6,7 +6,10 @@
 
 {% block body %}
 	<section class="section-program">
-		<h1 class="p-4 text-center">Liste de toutes les séries</h1>
+		<div class="bloc-head d-flex justify-content-around align-items-center">
+			<h1 class="p-4">Liste de toutes les séries</h1>
+			<a class="btn btn-lg btn-outline-secondary mb-4" href="/program/new">Ajouter une série</a>
+		</div>
 		<div class="container">
 			<div class="row">
 				{% for program in programs %}
@@ -17,7 +20,7 @@
 								<h2 class="text-dark">{{program.title}}</h2>
 								<p class="text-dark">{{program.synopsis}}</p>
 							</div>
-							<a class="btn btn-lg btn-outline-secondary" href="{{path('program_show', {"program" : program.id})}}">En savoir +</a>
+							<a class="btn btn-lg btn-outline-secondary" href="{{path('program_show', {"slug" : program.slug})}}">En savoir +</a>
 						</div>
 					</div>
 				{% endfor %}

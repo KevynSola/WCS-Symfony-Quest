@@ -28,7 +28,7 @@
 
     <a href="{{ path('app_episode_index') }}" class="text-light">back to list</a>
 
-    <a href="{{ path('app_episode_edit', {'id': episode.id}) }}" class="text-light">edit</a>
+    <a href="{{ path('app_episode_edit', {'slug': episode.slug}) }}" class="text-light">edit</a>
 
     {{ include('episode/_delete_form.html.twig') }}
 {% endblock %}

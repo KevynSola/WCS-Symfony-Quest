@@ -25,28 +25,34 @@
 						Acteurs
 					</a>
 					{# <ul class="dropdown-menu">
-						<li>
-							<a class="dropdown-item" href="#">Action</a>
-						</li>
-						<li>
-							<a class="dropdown-item" href="#">Another action</a>
-						</li>
-						<li>
-							<a class="dropdown-item" href="#">Something else here</a>
-						</li>
-					</ul> #}
+																																				<li>
+																																					<a class="dropdown-item" href="#">Action</a>
+																																				</li>
+																																				<li>
+																																					<a class="dropdown-item" href="#">Another action</a>
+																																				</li>
+																																				<li>
+																																					<a class="dropdown-item" href="#">Something else here</a>
+																																				</li>
+																																			</ul> #}
 				</li>
 				<li class="nav-item">
 					<a class="nav-link text-light mx-3" href="#">Mes Favoris</a>
 				</li>
 			</ul>
 			<ul class="navbar-nav align-items-center mb-2 mb-lg-0 mx-3">
-				<li class="nav-item">
-					<a class="nav-link text-secondary" href="#">Déconnexion</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link text-light" href="#">UserName</a>
-				</li>
+				{% if app.user %}
+					<li class="nav-item">
+						<a class="nav-link text-secondary" href="{{ path('app_logout') }}">Déconnexion</a>
+					</li>
+					<li class="nav-item mx-2">
+						{{ app.user.email }}
+					</li>
+				{% else %}
+					<li class="nav-item">
+						<a class="nav-link text-light" href="{{ path('app_login') }}">UserName</a>
+					</li>
+				{% endif %}
 				<li class="nav-item">
 					<img src="{{ asset('build/images/avatar-placeholder.png') }}" class="rounded-circle" width="50" height="45" alt="Image d'utilisateur">
 				</li>

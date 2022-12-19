@@ -27,6 +27,7 @@ class UserFixtures extends Fixture
             'contributorpassword'
         );
         $contributor->setPassword($hashedPassword);
+        $this->addReference('user_contributor', $contributor);
         $manager->persist($contributor);
 
         // admin role

@@ -34,6 +34,7 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
                 $program->setCategory($this->getReference('category_' . $category));
                 $slug = $this->slugger->slug($program->getTitle());
                 $program->setSlug($slug);
+                $program->setOwner($this->getReference('user_contributor'));
                 $program->setPoster('https://www.ecranlarge.com/media/cache/1600x1200/uploads/image/001/456/9mxcenewbmdxjxdfoijwigoe1tv-987.jpg');
                 $this->addReference('program_' . $i . '_' . $category, $program);
                 for ($j = 1; $j < self::PROG_FOR_ACTOR; $j++) {

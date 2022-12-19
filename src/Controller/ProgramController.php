@@ -47,12 +47,13 @@ class ProgramController extends AbstractController
             $slug = $this->slugger->slug($program->getTitle());
             $program->setSlug($slug);
             $programRepository->save($program, true);
+            $program->setOwner($this->getUser());
 
             $email = (new Email())
                 ->from($this->getParameter('mailer_from'))
                 ->to('your_email@example.com')
                 ->subject('Une nouvelle série vient d\'être publiée !')
-                ->html('<p>Une nouvelle série vient d\'être publiée sur Wild Séries !</p>');
+                ->html($this->renderView('program/newProgramEmail.html.twig', ['program' => $program]));
 
             $mailer->send($email);
 
@@ -104,6 +105,11 @@ class ProgramController extends AbstractController
     {
         $form = $this->createForm(ProgramType::class, $program);
         $form->handleRequest($request);
+
+        if ($this->getUser() !== $program->getOwner()) {
+            // If not the owner, throws a 403 Access Denied exception
+            throw $this->createAccessDeniedException('Only the owner can edit the program!');
+        }
 
         if ($form->isSubmitted() && $form->isValid()) {
             $slug = $this->slugger->slug($program->getTitle());

@@ -38,9 +38,12 @@
 								{% endfor %}
 							</ul>
 						</div>
+						{% if is_granted("ROLE_ADMIN") %}
+							<a href="{{ path('program_edit', { 'slug': program.slug} ) }}" class="btn btn-lg">Éditer</a>
+							{%endif%}
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-{% endblock %}
+	{% endblock %}

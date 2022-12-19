@@ -4,12 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Episode;
 use App\Form\EpisodeType;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use App\Repository\EpisodeRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/episode')]
 class EpisodeController extends AbstractController
@@ -30,7 +32,12 @@ class EpisodeController extends AbstractController
     }
 
     #[Route('/new', name: 'app_episode_new', methods: ['GET', 'POST'])]
-    public function new (Request $request, EpisodeRepository $episodeRepository, SluggerInterface $slugger): Response
+    public function new (
+        Request $request,
+        EpisodeRepository $episodeRepository,
+        SluggerInterface $slugger,
+        MailerInterface $mailer
+        ): Response
     {
         $episode = new Episode();
         $form = $this->createForm(EpisodeType::class, $episode);
@@ -40,6 +47,14 @@ class EpisodeController extends AbstractController
             $slug = $this->slugger->slug($episode->getTitle());
             $episode->setSlug($slug);
             $episodeRepository->save($episode, true);
+
+            $email = (new Email())
+                ->from($this->getParameter('mailer_from'))
+                ->to('your_email@example.com')
+                ->subject('Un nouvel épisode vient d\'être publié !')
+                ->html($this->renderView('episode/newEpisodeEmail.html.twig', ['episode' => $episode]));
+
+            $mailer->send($email);
 
             $this->addFlash('success', 'Ce nouvel épisode est crée');
 

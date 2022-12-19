@@ -3,15 +3,18 @@
 namespace App\Controller;
 
 use App\Entity\Season;
+use App\Entity\Comment;
 use App\Entity\Episode;
 use App\Entity\Program;
 use App\Form\ProgramType;
 use App\Service\ProgramDuration;
+use Symfony\Component\Mime\Email;
+use App\Repository\CommentRepository;
 use App\Repository\ProgramRepository;
+use App\Repository\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -91,12 +94,35 @@ class ProgramController extends AbstractController
     #[Route('/{slug}/season/{season}/episode/{slugEp}', methods: ['GET'], name: 'episode_show')]
     #[ParamConverter('episode', options: ['mapping' => ['slugEp' => 'slug']])]
     #[ParamConverter('program', options: ['mapping' => ['slug' => 'slug']])]
-    public function showEpisode(Program $program, Season $season, Episode $episode)
+    public function showEpisode(
+        Program $program,
+        Season $season,
+        Episode $episode,
+        CommentRepository $commentRepository,
+        CategoryRepository $categoryRepository,
+        Request $request
+        )
     {
-        return $this->render('program/episode_show.html.twig', [
+        $categories = $categoryRepository->findAll();
+        /* $comments = $commentRepository->findBy(['episode' => $episode->getId()]);
+        $comment = new Comment();
+
+        if(){
+            $commentRepository->save($comment, true);
+
+            $this->addFlash('succes', 'Votre commentaire est en ligne');
+            return $this->redirectToRoute('episode_show', [
+                'episode' => $episode->getId(),
+                'season' => $season->getId(),
+            ]);
+        } */
+
+        return $this->renderForm('program/episode_show.html.twig', [
             'program' => $program,
             'season' => $season,
             'episode' => $episode,
+            /* 'comments' => $comments, */
+            'categories' => $categories,
         ]);
     }
 

@@ -1,23 +1,30 @@
-{% extends "base.html.twig" %}
+{% extends 'base.html.twig' %}
 
-{% block title %}
-	{{parent()}}
-	| Acteur
-	{{actor.id}}
-{% endblock %}
+{% block title %}Actor{% endblock %}
 
 {% block body %}
-	<section>
-		<a class="btn btn-lg btn-light m-4" href="/program">Retour</a>
-		<h1 class="p-4 text-center">{{actor.name}}</h1>
-		<div class="container">
-			<div class="card card-actor text-dark">
-				<ul class="actor-list list-unstyled d-flex flex-column justify-content-center align-items-center">
-					{% for program in actor.programs %}
-						<a href="{{path('program_show', {"program": program.id})}}">{{program.title}}</a>
-					{% endfor %}
-				</ul>
-			</div>
-		</div>
-	</section>
+    <h1 class="text-light">Actor</h1>
+
+    <table class="table text-light">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ actor.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ actor.name }}</td>
+            </tr>
+            <tr>
+                <th>Poster</th>
+                <td><img src="{{vich_uploader_asset(actor)}}" alt="{{actor.name}}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a class="text-light" href="{{ path('app_actor_index') }}">back to list</a>
+
+    <a class="text-light" href="{{ path('app_actor_edit', {'id': actor.id}) }}">edit</a>
+
+    {{ include('actor/_delete_form.html.twig') }}
 {% endblock %}

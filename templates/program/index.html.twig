@@ -15,7 +15,7 @@
 				{% for program in programs %}
 					<div class="col-12 col-sm-4 col-md-3 g-4 mb-4">
 						<div class="card card-program">
-							<img src="{{program.poster}}" class="rounded-top img-card" alt="Image de la série">
+							<img src="{{vich_uploader_asset(program)}}" class="rounded-top img-card" alt="{{program.title}}">
 							<div class="card-body">
 								<h2 class="text-dark">{{program.title}}</h2>
 								<p class="text-dark">{{program.synopsis}}</p>

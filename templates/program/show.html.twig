@@ -16,7 +16,7 @@
 			<div class="row">
 				<div class="col mb-4">
 					<div class="card">
-						<img src="{{program.poster}}" class="rounded-top img-card-show" alt="Image de la série">
+						<img src="{{vich_uploader_asset(program)}}" class="rounded-top img-card-show" alt="Image de la série">
 						<div class="card-body">
 							<p class="text-dark">{{program.synopsis}}</p>
 						</div>
@@ -32,7 +32,7 @@
 							</ul>
 							<ul class="actor-list list-unstyled d-flex flex-column justify-content-center align-items-center fw-bold text-dark">Acteurs :
 								{% for actor in program.actors %}
-									<a class="fw-normal" href="{{path('app_actor_show', {"actor" : actor.id})}}">{{ actor.name }}</a>
+									<a class="fw-normal" href="{{path('app_episode_show_actor', {"actor" : actor.id})}}">{{ actor.name }}</a>
 								{% else %}
 									<li class="fw-normal">Aucun acteur pour cette série</li>
 								{% endfor %}

@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	{{parent()}}
+	|
+	{{actor.name}}
+{% endblock %}
+
+{% block body %}
+	<section>
+		<a class="btn btn-lg btn-light m-4" href="/program">Retour</a>
+		<h1 class="p-4 text-center">{{actor.name}}</h1>
+		<div class="container">
+			<div class="card card-actor text-dark">
+				<ul class="actor-list list-unstyled d-flex flex-column justify-content-center align-items-center">
+					{% for program in actor.programs %}
+						<a href="{{path('program_show', {"slug": program.slug})}}">{{program.title}}</a>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+	</section>
+{% endblock %}

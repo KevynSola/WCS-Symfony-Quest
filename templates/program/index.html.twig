@@ -26,8 +26,10 @@
 								<h2 class="text-dark">{{program.title}}</h2>
 								<p class="text-dark">{{program.synopsis}}</p>
 							</div>
-							<a class="btn btn-lg btn-outline-secondary" href="{{ path('program_watchlist', {slug: program.slug})}}">
-								<i class="bi {{ app.user.isInWatchlist(program) ? 'bi-heart-fill' : 'bi-heart' }}"></i>
+							<a id="watchlist" class="btn btn-lg btn-outline-secondary" href="{{ path('program_watchlist', {slug: program.slug})}}">
+								{% if app.user %}
+									<i class="fs-4 me-3 bi {{ app.user.isInWatchlist(program) ? 'bi-heart-fill' : 'bi-heart' }}"></i>
+								{% endif %}
 							</a>
 							<a class="btn btn-lg btn-secondary" href="{{path('program_show', {"slug" : program.slug})}}">En savoir +</a>
 						</div>

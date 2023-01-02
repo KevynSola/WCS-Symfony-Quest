@@ -3,12 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Season;
-use App\Entity\Comment;
 use App\Entity\Episode;
 use App\Entity\Program;
 use App\Form\ProgramType;
 use App\Form\SearchProgramType;
 use App\Service\ProgramDuration;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Mime\Email;
 use App\Repository\UserRepository;
 use App\Repository\CommentRepository;
@@ -174,8 +174,8 @@ class ProgramController extends AbstractController
         return $this->redirectToRoute('program_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/{slug}/watchlist', requirements: ['id' => '\d+'], methods: ['GET', 'POST'], name: 'watchlist')]
-    public function addToWatchlist(Program $program, UserRepository $userRepository): Response
+    #[Route('/{slug}/watchlist', methods: ['GET'], name: 'watchlist')]
+    public function addToWatchlist(Program $program, UserRepository $userRepository): JsonResponse
     {
         if (!$program) {
             throw $this->createNotFoundException(
@@ -193,6 +193,8 @@ class ProgramController extends AbstractController
 
         $userRepository->save($user, true);        
 
-        return $this->redirectToRoute('program_index', ['slug' => $program->getSlug()], Response::HTTP_SEE_OTHER);
+        return $this->json([
+            'isInWatchlist' => $this->getUser()->isInWatchlist($program)
+        ]);
     }
 }

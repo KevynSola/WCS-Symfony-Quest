@@ -174,7 +174,7 @@ class ProgramController extends AbstractController
         return $this->redirectToRoute('program_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/{id}/watchlist', methods: ['GET'], name: 'watchlist')]
+    #[Route('/{slug}/watchlist', methods: ['GET'], name: 'watchlist')]
     public function addToWatchlist(Program $program, UserRepository $userRepository): JsonResponse
     {
         if (!$program) {

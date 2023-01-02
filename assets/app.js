@@ -20,9 +20,9 @@ require('bootstrap');
 // require('bootstrap/js/dist/tooltip');
 // require('bootstrap/js/dist/popover');
 
-$(document).ready(function() {
+/* $(document).ready(function() {
     $('[data-toggle="popover"]').popover();
-});
+}); */
 
 document.getElementById('watchlist').addEventListener('click', addToWatchlist);
 
@@ -47,5 +47,6 @@ function addToWatchlist(event) {
                 watchlistIcon.classList.remove('bi-heart-fill'); // Remove the .bi-heart-fill (full heart) from classes in <i> element
                 watchlistIcon.classList.add('bi-heart'); // Add the .bi-heart (empty heart) from classes in <i> element
             }
+            console.log('bonjour');
         });
 }

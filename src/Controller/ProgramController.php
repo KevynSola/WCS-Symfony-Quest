@@ -174,12 +174,12 @@ class ProgramController extends AbstractController
         return $this->redirectToRoute('program_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/{slug}/watchlist', methods: ['GET'], name: 'watchlist')]
+    #[Route('/{id}/watchlist', methods: ['GET'], name: 'watchlist')]
     public function addToWatchlist(Program $program, UserRepository $userRepository): JsonResponse
     {
         if (!$program) {
             throw $this->createNotFoundException(
-                'No program with this id found in program\'s table.'
+                'Ancune série trouvé'
             );
         }      
 
